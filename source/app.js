@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import StatefulComponent from './components/StatefulComponent';
+import Application from './components/Application';
 
 ReactDOM.render(
-  <div>
-    <StatefulComponent/>
-  </div>,
+  <Application />,
   document.getElementById('react-application')
 );
