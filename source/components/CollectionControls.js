@@ -101,4 +101,4 @@ class CollectionControls extends Component {
     );
   }
 }
-export defaultCollectionControls;
+export default CollectionControls;

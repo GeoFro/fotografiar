@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Tweet from './Tweet';
-import TweetUtils from '../utils/TweetUtils';
+// import TweetUtils from '../utils/TweetUtils';
 
 const listStyle = {
   padding: "0"
@@ -11,7 +11,7 @@ const listItemStyle = {
   listStyle: "none"
 };
 
-ckass TweetList extends Component {
+class TweetList extends Component {
   getTweetElement = (tweetId) => {
     const { tweets, onRemoveTweetFromCollection } = this.props;
     const tweet = tweets[tweetId];
