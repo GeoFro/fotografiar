@@ -1,4 +1,4 @@
-import React, { component } from 'react';
+import React, { Component } from 'react';
 import ReactDomServer from 'react-dom/server';
 import CollectionControls from './CollectionControls';
 import TweetList from './TweetList';
