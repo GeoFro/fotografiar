@@ -33,7 +33,7 @@ class Application extends Component {
     });
   }
 
-  render () {
+  render() {
     const {
       addTweetToCollection,
       removeTweetFromCollection,
@@ -51,10 +51,10 @@ class Application extends Component {
               tweets={this.state.collectionTweets}
               onRemoveTweetFromCollection={removeTweetFromCollection}
               onRemoveAllTweetsFromCollection={removeAllTweetsFromCollection}
-              />
-            </div>
+            />
           </div>
         </div>
+      </div>
     );
   }
 }

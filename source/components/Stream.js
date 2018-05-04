@@ -8,11 +8,11 @@ class Stream extends Component {
     tweet: null
   }
 
-  componentDidMount () {
+  componentDidMount() {
     SnapkiteStreamClient.initializeStream(this.handleNewTweet);
   }
 
-  componentWillUnMount() {
+  componentWillUnmount() {
     SnapkiteStreamClient.destroyStream();
   }
 
@@ -25,13 +25,13 @@ class Stream extends Component {
   render() {
     const { tweet } = this.state;
     const { onAddTweetToCollection } = this.props;
-    const headerText = 'Waiting for photos from Twitter...';
+    const headerText = 'Waiting for public photos from Twitter...';
 
     if (tweet) {
       return (
         <StreamTweet
           tweet={tweet}
-          onAddTweetToCollection={onAddTweetToCollection}
+          onAddTweetToCollection={this.props.onAddTweetToCollection}
         />
       );
     }

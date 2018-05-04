@@ -1,44 +1,44 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import Header from './Header';
 import Tweet from './Tweet';
 
 class StreamTweet extends Component {
+  state = {
+    numberOfCharactersIsIncreasing: null,
+    headerText: null
+  }
 
   componentWillMount() {
-    console.log('[Fotografiar] StreatTweet: 1. Running componentWillMount()')
+    console.log('[Snapterest] StreamTweet: 1. Running componentWillMount()');
 
     this.setState({
       numberOfCharactersIsIncreasing: true,
       headerText: 'Latest public photo from Twitter'
     });
 
-    // It's bad practice to have properties on a Global object.
-    // This code can be taken out and won't affect anything bu I'm leaving it in for now.
-    window.fotografiar = {
+    window.snapterest = {
       numberOfReceivedTweets: 1,
       numberOfDisplayedTweets: 1
     };
   }
 
-  componentDidMount = () => {
-
-    console.log('[Fotografiar] StreamTweet: 3. Running componentDidMount()');
+  componentDidMount() {
+    console.log('[Snapterest] StreamTweet: 2. Running componentDidMount()');
 
     const componentDOMRepresentation = ReactDOM.findDOMNode(this);
-
-    window.fotografiar.headerHtml = componentDOMRepresentation.children[0].outerHTML;
-    window.fotografiar.tweetHtml = componentDOMRepresentation.children[1].outerHTML;
+    window.snapterest.headerHtml = componentDOMRepresentation.children[0].outerHTML;
+    window.snapterest.tweetHtml = componentDOMRepresentation.children[1].outerHTML;
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('[Fotografiar] StreamTweet: 4. Running componentWillReceiveProps()')
+    console.log('[Snapterest] StreamTweet: 4. Running componentWillReceiveProps()');
 
     const { tweet: currentTweet } = this.props;
     const { tweet: nextTweet } = nextProps;
 
     const currentTweetLength = currentTweet.text.length;
     const nextTweetLength = nextTweet.text.length;
-
     const isNumberOfCharactersIncreasing = (nextTweetLength > currentTweetLength);
     let headerText;
 
@@ -56,50 +56,38 @@ class StreamTweet extends Component {
       headerText
     });
 
-    window.fotografiar.numberOfReceivedTweets++;
+    window.snapterest.numberOfReceivedTweets++;
   }
 
-  // If the next Tweet's text is longer than 1 character then it will be true //
-  // and then it will update. Otherwise false and it won't //
   shouldComponentUpdate(nextProps, nextState) {
-    console.log('[Fotografiar] StreamTweet: 5 Running shouldComponentUpdate()')
-
+    console.log('[Snapterest] StreamTweet: 5. Running shouldComponentUpdate()');
     return (nextProps.tweet.text.length > 1);
   }
 
   componentWillUpdate(nextProps, nextState) {
-    console.log('[Fotografiar] StreamTweet 6. Running componentWillUpdate()')
+    console.log('[Snapterest] StreamTweet: 6. Running componentWillUpdate()');
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('[Fotografiar] StreamTweet 7. Running componentDidUpdate()')
-
-    window.fotografiar.numberOfDisplayedTweets++;
+    console.log('[Snapterest] StreamTweet: 7. Running componentDidUpdate()');
+    window.snapterest.numberOfDisplayedTweets++;
   }
 
-  // End of updating cycle
+  componentWillUnmount() {
+    console.log('[Snapterest] StreamTweet: 8. Running componentWillUnmount()');
 
-  componentWillUnMount() {
-    console.log('[Fotografiar] StreamTweet: 8. Running componentWillUnMount()');
-
-    delete window.fotografiar;
+    delete window.snapterest;
   }
-
-  // Define other component lifecycle methods here //
 
   render() {
-    console.log('[Fotografiar] StreamTweet: Running render()');
+    console.log('[Snapterest] StreamTweet: Running render()');
 
-
-    const { headerText } = this.state;
-    const { tweet, onAddTweetToCollection } = this.props;
-
-    return(
+    return (
       <section>
-        <Header text={headerText} />
+        <Header text={this.state.headerText} />
         <Tweet
-          tweet={tweet}
-          onImageClick={onAddTweetToCollection}
+          tweet={this.props.tweet}
+          onImageClick={this.props.onAddTweetToCollection}
         />
       </section>
     );

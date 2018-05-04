@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
 import Tweet from './Tweet';
-// import TweetUtils from '../utils/TweetUtils';
 
 const listStyle = {
-  padding: "0"
+  padding: '0'
 };
 
 const listItemStyle = {
-  display: "inline-block",
-  listStyle: "none"
+  display: 'inline-block',
+  listStyle: 'none'
 };
 
 class TweetList extends Component {
+
+  getListOfTweetIds = () =>
+    Object.keys(this.props.tweets);
+
   getTweetElement = (tweetId) => {
     const { tweets, onRemoveTweetFromCollection } = this.props;
     const tweet = tweets[tweetId];
     let tweetElement;
 
-
-    // Checks whether the onRemoveTweetFromCollection property is provided.
-    // Will render differently depending on whether it is or not
-    // Allows the same component to be reused in different contexts.
     if (onRemoveTweetFromCollection) {
       tweetElement = (
         <Tweet
@@ -29,7 +28,7 @@ class TweetList extends Component {
         />
       );
     } else {
-        tweetElement = <Tweet tweet={tweet} />;
+      tweetElement = <Tweet tweet={tweet}/>;
     }
 
     return (
@@ -40,7 +39,7 @@ class TweetList extends Component {
   }
 
   render() {
-    const tweetElements = TweetUtils
+    const tweetElements = this
       .getListOfTweetIds()
       .map(this.getTweetElement);
 
