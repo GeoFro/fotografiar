@@ -5,7 +5,7 @@ import TweetStore from '../stores/TweetStore';
 
 class Stream extends Component {
   state = {
-    tweet: TweetStore.getTweet();
+    tweet: TweetStore.getTweet()
   }
 
   onTweetChange = () => {
