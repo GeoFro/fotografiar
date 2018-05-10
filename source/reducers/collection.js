@@ -1,10 +1,3 @@
-const initialState = {
-  collectionTweets: {},
-  collectionName: 'new',
-  isEditingName: false,
-  editingName: ''
-};
-
 const collectionReducer = (
   state = initialState,
   action
