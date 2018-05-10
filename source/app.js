@@ -10,7 +10,7 @@ initializeStreamOfTweets(store);
 
 ReactDOM.render(
   <Provider store={store}>
-    <Application />
+    <Application/>
   </Provider>,
   document.getElementById('react-application')
 );
