@@ -1,29 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import StreamTweet from './StreamTweet';
 import Header from './Header';
 import TweetStore from '../stores/TweetStore';
 
 class Stream extends Component {
-  state = {
-    tweet: TweetStore.getTweet()
-  }
-
-  onTweetChange = () => {
-    this.setState({
-      tweet: TweetStore.getTweet()
-    });
-  }
-
-  componentDidMount() {
-    TweetStore.addChangeListener(this.onTweetChange);
-  }
-
-  componentWillUnmount() {
-    TweetStore.removeChangeListener(this.onTweetChange);
-  }
-
   render() {
-    const { tweet } = this.state;
+    const { tweet } = this.props;
     const { onAddTweetToCollection } = this.props;
     const headerText = 'Waiting for public photos from Twitter...';
 
@@ -39,4 +22,11 @@ class Stream extends Component {
   }
 }
 
-export default Stream;
+const mapStateToProps= ({ tweet }) => ({ tweet });
+
+const mapDispatchToProps = dispatch => ({});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Stream);
