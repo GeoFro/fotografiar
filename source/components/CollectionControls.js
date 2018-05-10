@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import Header from './Header';
 import Button from './Button';
 import CollectionRenameForm from './CollectionRenameForm';
 import CollectionExportForm from './CollectionExportForm';
-import CollectionActionCreators from '../actions/CollectionActionCreators';
-import CollectionStore from '../stores/CollectionStore';
+
+import {
+  toggleIsEditingFromCollection,
+  removeAllTweetsFromCollection
+} from '../actions';
 
 class CollectionControls extends Component {
-  state = {
-    isEditingName: false
-  }
 
   getHeaderText = () => {
     const { numberOfTweetsInCollection } = this.props;
+    const { collectionName } = this.props
     let text = numberOfTweetsInCollection;
-    const name = CollectionStore.getCollectionName();
 
     if (numberOfTweetsInCollection === 1) {
       text = `${text} tweet in your`;
@@ -29,27 +31,18 @@ class CollectionControls extends Component {
     );
   }
 
-  toggleEditCollectionName = () => {
-    this.setState(prevState => ({
-      isEditingName: !prevState.isEditingName
-    }));
-  }
-
-  removeAllTweetsFromCollection = () => {
-    CollectionActionCreators.removeAllTweetsFromCollection();
-  }
-
   render() {
-    const { name, isEditingName } = this.state;
-    const onRemoveAllTweetsFromCollection = this.removeAllTweetsFromCollection;
-    const { htmlMarkup } = this.props;
+    const {
+      collectionName,
+      isEditingName,
+      htmlMarkup,
+      onRenameCollection,
+      onEmptyCollection
+    } = this.props;
 
     if (isEditingName) {
       return (
-        <CollectionRenameForm
-          name={name}
-          onCancelCollectionNameChange={this.toggleEditCollectionName}
-        />
+        <CollectionRenameForm name={collectionName} />
       );
     }
 
@@ -59,18 +52,35 @@ class CollectionControls extends Component {
 
         <Button
           label="Rename collection"
-          handleClick={this.toggleEditCollectionName}
+          handleClick={onRenameCollection}
         />
 
         <Button
           label="Empty collection"
-          handleClick={onRemoveAllTweetsFromCollection}
+          handleClick={onEmptyCollection}
         />
 
-        <CollectionExportForm htmlMarkup={htmlMarkup}/>
+        <CollectionExportForm
+          html={htmlMarkup}
+          title={collectionName}
+        />
       </div>
     );
   }
 }
 
-export default CollectionControls;
+const mapStateToProps = state => state.collection;
+
+const mapDispatchToProps = dispatch => ({
+  onRenameCollection: () => {
+    dispatch(toggleIsEditingName());
+  },
+  onEmptyCollection: () => {
+    dispatch(removeAllTweetsFromCollection());
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CollectionControls);
