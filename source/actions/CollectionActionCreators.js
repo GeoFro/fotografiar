@@ -19,7 +19,7 @@ function removeTweetFromCollection(tweetId) {
 }
 
 function removeAllTweetsFromCollection() {
-  const action {
+  const action = {
     type: 'remove_all_tweets_from_collection'
   };
 
