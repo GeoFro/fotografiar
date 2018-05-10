@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders default header text 1`] = `
+<h2
+  style={
+    Object {
+      "display": "inline-block",
+      "fontSize": "16px",
+      "fontWeight": "300",
+      "margin": "20px 10px",
+    }
+  }
+>
+  Default header
+</h2>
+`;
+
+exports[`Header renders provided header text 1`] = `
+<h2
+  style={
+    Object {
+      "display": "inline-block",
+      "fontSize": "16px",
+      "fontWeight": "300",
+      "margin": "20px 10px",
+    }
+  }
+>
+  Testing
+</h2>
+`;
