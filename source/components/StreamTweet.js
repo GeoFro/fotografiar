@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Header from './Header';
 import Tweet from './Tweet';
+import CollectionActionCreators from '../actions/CollectionActionCreators';
 
 class StreamTweet extends Component {
   state = {
     numberOfCharactersIsIncreasing: null,
     headerText: null
+  }
+
+  addTweetToCollection = tweet => {
+    CollectionActionCreators.addTweetToCollection(tweet);
   }
 
   componentWillMount() {
@@ -82,12 +87,14 @@ class StreamTweet extends Component {
   render() {
     console.log('[Snapterest] StreamTweet: Running render()');
 
+    const { tweet } = this.props;
+
     return (
       <section>
         <Header text={this.state.headerText} />
         <Tweet
-          tweet={this.props.tweet}
-          onImageClick={this.props.onAddTweetToCollection}
+          tweet={tweet}
+          onImageClick={this.addTweetToCollection}
         />
       </section>
     );
