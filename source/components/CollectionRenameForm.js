@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Button from './Button';
+import CollectionActionCreators from '../actions/CollectionActionCreators';
+import CollectionStore from '../stores/CollectionStore';
 
 const inputStyle = {
   marginRight: '5px'
 };
 
 class CollectionRenameForm extends Component {
-  constructor(props) {
-    super(props);
-
-    const { name } = props;
-
-    this.state = {
-      inputValue: name
-    };
+  state = {
+    inputValue: CollectionStore.getCollectionName()
   }
 
   setInputValue = (inputValue) => {
@@ -28,22 +24,25 @@ class CollectionRenameForm extends Component {
     this.setInputValue(inputValue);
   }
 
-  handleFormSubmit = (event) => {
+  handleFormSubmit = event => {
     event.preventDefault();
 
-    const { onChangeCollectionName } = this.props;
+    const { onCancelCollectionNameChange } = this.props;
     const { inputValue: collectionName } = this.state;
 
-    onChangeCollectionName(collectionName);
+    CollectionActionCreators.setCollectionName(collectionName);
+
+    onCancelCollectionNameChange();
   }
 
-  handleFormCancel = (event) => {
+  handleFormCancel = event => {
     event.preventDefault();
 
     const {
-      name: collectionName,
       onCancelCollectionNameChange
     } = this.props;
+
+    const cillectionName = CollectionStore.getCollectionName();
 
     this.setInputValue(collectionName);
     onCancelCollectionNameChange();

@@ -48,7 +48,6 @@ class CollectionControls extends Component {
       return (
         <CollectionRenameForm
           name={name}
-          onChangeCollectionName={this.setCollectionName}
           onCancelCollectionNameChange={this.toggleEditCollectionName}
         />
       );
